@@ -43,8 +43,17 @@ Sans dongle : source = `os`. C'est correct. Ce n'est pas honteux.
 
 ## Famille
 
-UNFORGE peut *consommer* une carte QUELLE comme source du jeton.  
-SITUS n'a pas besoin de qubits pour dire `allow` / `deny`.
+| Rail | Question |
+|---|---|
+| [FIGURE](https://github.com/carllaliberte/figure-protocol) | qui |
+| [SITUS](https://github.com/carllaliberte/situs-protocol) | où |
+| [UNFORGE](https://github.com/carllaliberte/unforge-check) | quoi |
+| [QUELLE](https://github.com/carllaliberte/quelle) | d'où le bit |
+| [TÉMOIN](https://github.com/carllaliberte/temoin-protocol) | avec quelle force |
+| [HORIZON](https://github.com/carllaliberte/horizon-protocol) | jusqu'à quand le sceau tient |
+
+`unforge-check` peut *lire* une carte QUELLE (`--quelle`). Il ne signe pas.  
+MIT (protocoles) · Apache-2.0 (œil UNFORGE). QUANTUM signe. Les clés restent hors Git.
 
 ## Fichiers
 
