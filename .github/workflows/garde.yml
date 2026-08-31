@@ -3,8 +3,14 @@ name: garde
 on:
   push:
     branches: [main]
+    paths: ["quelle.py", "schema/**", ".github/workflows/garde.yml"]
   pull_request:
+    paths: ["quelle.py", "schema/**", ".github/workflows/garde.yml"]
   workflow_dispatch:
+
+concurrency:
+  group: garde-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -14,15 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - name: compile
-        run: python3 -m compileall -q quelle.py
-      - name: tirer os
-        run: python3 quelle.py tirer --octets 16 --vers /tmp/c.quelle.json
-      - name: qrng sans appareil = refus
+          fetch-depth: 1
+      - name: compile + os + refus qrng
         run: |
+          set -e
+          python3 -m compileall -q quelle.py
+          python3 quelle.py tirer --octets 16 --vers /tmp/c.quelle.json
           if python3 quelle.py tirer --source qrng ; then
             echo "qrng silencieux interdit"
             exit 1
