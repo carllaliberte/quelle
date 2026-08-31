@@ -1,0 +1,11 @@
+{
+  "format": "quelle.v0",
+  "id": "QL-demo00000001",
+  "source": "os",
+  "simule": true,
+  "appareil": null,
+  "n_octets": 32,
+  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tire_at": "2026-08-31T18:00:00Z",
+  "note": "exemple — sha256 d'une chaîne vide, pas un tirage réel"
+}

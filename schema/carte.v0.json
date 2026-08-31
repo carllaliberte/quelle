@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/carllaliberte/quelle/schema/carte.v0.json",
+  "title": "Carte QUELLE v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "id", "source", "simule", "n_octets", "sha256", "tire_at"],
+  "properties": {
+    "format": { "const": "quelle.v0" },
+    "id": { "type": "string" },
+    "source": { "enum": ["os", "qrng", "qkd"] },
+    "simule": { "type": "boolean" },
+    "appareil": { "type": ["string", "null"] },
+    "n_octets": { "type": "integer", "minimum": 1 },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "tire_at": { "type": "string" },
+    "note": { "type": "string" }
+  }
+}
