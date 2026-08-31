@@ -53,6 +53,22 @@ def lire(chemin: str) -> dict:
     return carte
 
 
+def voir(carte: dict, registre: str = "vues.quelle.json") -> dict:
+    sha = carte.get("sha256")
+    if not sha:
+        raise SystemExit("refus : pas de sha256")
+    path = Path(registre).expanduser()
+    mem = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {"sha256": []}
+    vues = list(mem.get("sha256") or [])
+    if sha in vues:
+        raise SystemExit("refus : fraîcheur. empreinte déjà vue")
+    vues.append(sha)
+    mem["sha256"] = vues
+    mem["vue_at"] = _now()
+    path.write_text(json.dumps(mem, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return {"ok": True, "sha256": sha, "n_vues": len(vues), "registre": str(path)}
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="quelle")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -62,19 +78,21 @@ def main(argv=None) -> int:
     pt.add_argument("--vers", default="carte.quelle.json")
     pl = sub.add_parser("lire")
     pl.add_argument("fichier")
+    pv = sub.add_parser("voir")
+    pv.add_argument("fichier")
+    pv.add_argument("--registre", default="vues.quelle.json")
     args = p.parse_args(argv)
     if args.cmd == "tirer":
         rec = tirer(args.octets, args.source)
-        Path(args.vers).write_text(
-            json.dumps(rec["carte"], ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
+        Path(args.vers).write_text(json.dumps(rec["carte"], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         out = dict(rec["carte"])
         out["octets_hex"] = rec["octets_hex"]
         out["fichier"] = args.vers
         print(json.dumps(out, ensure_ascii=False, indent=2))
-    else:
+    elif args.cmd == "lire":
         print(json.dumps(lire(args.fichier), ensure_ascii=False, indent=2))
+    else:
+        print(json.dumps(voir(lire(args.fichier), args.registre), ensure_ascii=False, indent=2))
     return 0
 
 
