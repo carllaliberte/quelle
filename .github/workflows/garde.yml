@@ -1,0 +1,29 @@
+name: garde
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: compile
+        run: python3 -m compileall -q quelle.py
+      - name: tirer os
+        run: python3 quelle.py tirer --octets 16 --vers /tmp/c.quelle.json
+      - name: qrng sans appareil = refus
+        run: |
+          if python3 quelle.py tirer --source qrng ; then
+            echo "qrng silencieux interdit"
+            exit 1
+          fi
