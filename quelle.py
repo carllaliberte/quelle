@@ -33,7 +33,7 @@ def tirer(n: int = 32, source: str = "os") -> dict:
         "format": "quelle.v0",
         "id": "QL-" + uuid.uuid4().hex[:12],
         "source": "os",
-        "simule": True,
+        "simule": False,
         "appareil": None,
         "n_octets": n,
         "sha256": hashlib.sha256(brut).hexdigest(),

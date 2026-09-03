@@ -9,5 +9,7 @@ QUELLE étiquette. Elle n'invente pas de physique.
 5. Du bruit de webcam / micro vendu comme QRNG certifié.
 6. Un token, une chain, un cloud d'entropie à toi.
 7. Coller QUELLE dans SITUS Connect pour faire croire qu'un rayon est un qubit.
+8. Tamponner `simule: true` sur un tirage `os` honnête. L'`os` n'est pas une simulation.
+9. Frapper `quantique` sur cette rail. `quelle: os` reste classique.
 
 La physique entre comme **source**. Pas comme décor.
