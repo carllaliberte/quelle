@@ -3,9 +3,21 @@ name: garde
 on:
   push:
     branches: [main]
-    paths: ["quelle.py", "schema/**", ".github/workflows/garde.yml"]
+    paths:
+      - "quelle.py"
+      - "schema/**"
+      - "tests/**"
+      - "examples/**"
+      - "README.md"
+      - ".github/workflows/garde.yml"
   pull_request:
-    paths: ["quelle.py", "schema/**", ".github/workflows/garde.yml"]
+    paths:
+      - "quelle.py"
+      - "schema/**"
+      - "tests/**"
+      - "examples/**"
+      - "README.md"
+      - ".github/workflows/garde.yml"
   workflow_dispatch:
 
 concurrency:
@@ -31,3 +43,5 @@ jobs:
             echo "qrng silencieux interdit"
             exit 1
           fi
+      - name: Physics locks
+        run: python3 -m unittest discover -s tests -v
